@@ -1,165 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<title>IloveAnime</title>
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página de Anime</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="NekoStream, descubre y guarda tus animes favoritos.">
+  <title>NekoStream — Tu siguiente anime empieza aquí</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
-
 <body>
-
-    <script src="script.js" defer></script>
-    <!--llamar a la barra de navegacion con JS-->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch("../navbar.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("navbar-container").innerHTML = data;
-                })
-                .then(() => {
-                    // Asegurar que los eventos de la navbar siempre funcionen
-                    document.addEventListener("click", function (event) {
-                        if (event.target.matches(".nav-link")) { // Ajusta según tu HTML
-                            event.preventDefault();
-                            const target = event.target.getAttribute("href");
-                            document.querySelector(target).scrollIntoView({ behavior: "smooth" });
-                        }
-                    });
-                })
-                .catch(error => console.error("Error cargando la barra de navegación:", error));
-        });
-
-    </script>
-
-    <script src="others/glitch_effect.js"></script>
-
-    <section id="inicio">
-        <div class="wrapper">
-            <ul class="dynamic-text">
-                <li>
-                    <h2><b>Nuevo Anime Subido</b></h2>
-                </li>
-                <li>
-                    <h2><b>New Anime Uploaded</b></h2>
-                </li>
-                <li>
-                    <h2><b>新しいアニメをアップロードしました</b></h2>
-                </li>
-            </ul>
-        </div>
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="NekoStream, inicio"><span class="brand-mark">N</span>Neko<span>Stream</span></a>
+    <nav class="main-nav" aria-label="Navegación principal"><a class="active" href="#inicio">Inicio</a><a href="#explorar">Explorar</a><a href="#mi-lista">Mi lista</a></nav>
+    <div class="header-actions"><button class="icon-button" id="theme-toggle" aria-label="Cambiar tema">◐</button><button class="profile-button" type="button"><span>Invitado</span><b>G</b></button></div>
+  </header>
+  <main id="inicio">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content"><p class="eyebrow">✦ DESTACADO DE LA SEMANA</p><h1 id="hero-title">Historias que<br><em>te atrapan.</em></h1><p class="hero-copy">Explora mundos nuevos, guarda tus favoritos y encuentra tu próxima obsesión.</p><div class="hero-actions"><a class="button button-primary" href="#explorar">Explorar catálogo <span>→</span></a><button class="button button-ghost" id="trailer-button" type="button">▷ Ver avance</button></div><div class="hero-meta"><span>⭐ 4.9</span><i></i><span>24 min por episodio</span><i></i><span>2024</span></div></div>
+      <div class="hero-art" aria-hidden="true"><div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div><img src="images/hoshi no ko.jpg" alt=""></div>
     </section>
-    <section id="ultimo-anime" class="anime-ultimo-grid" oncopy="return false" oncut="return false"
-        onpaste="return false" onselectstart="return false" noopener noreferrer>
-        <div class="anime-ultimo" id="anime-ultimo">
-            <img src="images/Make Heroine.png" alt="Make Heroine Ga Oosigiru">
-        </div>
-        <div class="span-box">
-            <h3 id="anime-upd" class="anime-name-updt">Make Heroine Ga Oosigiru</h3><b>Generos: </b>Escolar, Romance, Drama. <br><br>
-            La historia sigue a Kazuhiko Nukumizu, un chico callado en la escuela. Por casualidad, él es testigo del
-            rechazo de Anna Yanami, una de las chicas populares de su clase, por parte de su amigo de la infancia, lo
-            que les lleva a estrechar lazos. Este suceso desencadena una serie de encuentros entre Kazuhiko y otras
-            chicas de la escuela que también han sido rechazadas, al igual que Anna.
-        </div>
-
+    <section class="content-section" id="explorar" aria-labelledby="explorar-title">
+      <div class="section-heading"><div><p class="eyebrow">ENCUENTRA ALGO NUEVO</p><h2 id="explorar-title">Explora el catálogo</h2></div><span id="result-count" class="result-count"></span></div>
+      <div class="discover-bar"><label class="search-field"><span>⌕</span><input id="search-input" type="search" placeholder="Busca por título, género o estudio..." autocomplete="off"></label><div class="filter-list" role="group" aria-label="Filtrar por género"><button class="filter active" data-filter="Todos">Todos</button><button class="filter" data-filter="Acción">Acción</button><button class="filter" data-filter="Romance">Romance</button><button class="filter" data-filter="Fantasía">Fantasía</button><button class="filter" data-filter="Comedia">Comedia</button></div></div>
+      <div id="anime-grid" class="anime-grid" aria-live="polite"></div><p id="empty-state" class="empty-state" hidden>No encontramos anime con esa búsqueda. Prueba otro título o género.</p>
     </section>
-
-    <br>
-
-    <section id="animes">
-        <div class="anime-grid" oncopy="return false" oncut="return false" onpaste="return false"
-            onselectstart="return false" noopener noreferrer>
-            <div class="anime-item">
-                <img src="images/11.jpg" alt="Akatsuki Koujou">
-                <h3>Akatsuki Koujou</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/jujutsu kaisen.jpeg" alt="Jujutsu Kaisen">
-                <h3>Jujutsu Kaisen</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/kimetsu.png" alt="Kimetsu no Yaiba">
-                <h3>Kimetsu no Yaiba</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/kimi no nawa.png" alt="Kimi no Namae Wa?">
-                <h3>Kimi no Namae Wa?</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/naruto.png" alt="Naruto">
-                <h3>Naruto</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/one piede.jpg" alt="One Piece">
-                <h3>One Piece</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/pokemon.png" alt="Pokemon">
-                <h3>Pokemon</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/sao.jpg" alt="Sword Art Online">
-                <h3>Sword Art Online</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/spyxfamily.png" alt="Spy X Family">
-                <h3>Spy X Family</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/go-hanayome.jpg" alt="Gotoubun no Hanayome">
-                <h3>Gotoubun no Hanayome</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/shin no nakama janai to yuusha.png" alt="shin no nakama janai to yuusha">
-                <h3>shin no nakama janai to yuusha</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/arifureta shokugyou de sekai saikyou.png" alt="arifureta shokugyou de sekai saikyou">
-                <h3>arifureta shokugyou de sekai saikyou</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/Zero no Tsukaima.jpg" alt="Zero no Tsukaima">
-                <h3>Zero no Tsukaima</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/no game no life.png" alt="No Game no Life">
-                <h3>No Game no Life</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/rokudenashi majutsu koushi to akashic records.jpg"
-                    alt="Rokudenashi Majutsu to Akashic Records">
-                <h3>Rokudenashi Majutsu to Akashic Records</h3>
-            </div>
-            <div class="anime-item">
-                <img src="images/totoro.png" alt="My totoro's Neighbor">
-                <h3>Totoro</h3>
-            </div>
-        </div>
-    </section>
-
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch("navbar.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.body.insertAdjacentHTML("afterbegin", data);
-                })
-                .catch(error => console.error("Error cargando la barra de navegación:", error));
-        });
-    </script>
-
+    <section class="content-section list-section" id="mi-lista" aria-labelledby="lista-title"><div class="section-heading"><div><p class="eyebrow">TU ESPACIO</p><h2 id="lista-title">Mi lista</h2></div><button id="clear-list" class="text-button" type="button" hidden>Limpiar lista</button></div><div id="favorites-grid" class="favorites-placeholder"><span>♡</span><p>Aún no has guardado ningún anime.</p><small>Usa el corazón de una tarjeta para crear tu lista.</small></div></section>
+  </main>
+  <footer><a class="brand" href="#inicio"><span class="brand-mark">N</span>Neko<span>Stream</span></a><p>Una experiencia de catálogo creada solo para descubrir anime.</p><p>© 2026 NekoStream · Frontend demo</p></footer>
+  <dialog id="anime-modal" class="anime-modal"><button id="close-modal" class="modal-close" aria-label="Cerrar">×</button><div id="modal-content"></div></dialog><div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
-<br>
-<br>
-<br>
-<br>
-<footer>
-    <p2> 2025 Mi Página de Anime. Todos los derechos reservados.</p2>
-</footer>
-
 </html>
