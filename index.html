@@ -9,13 +9,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="main-overrides.css">
   <script src="script.js" defer></script>
 </head>
 <body>
   <header class="site-header">
     <a class="brand" href="#inicio" aria-label="NekoStream, inicio"><span class="brand-mark">N</span>Neko<span>Stream</span></a>
     <nav class="main-nav" aria-label="Navegación principal"><a class="active" href="#inicio">Inicio</a><a href="#explorar">Explorar</a><a href="#mi-lista">Mi lista</a></nav>
-    <div class="header-actions"><button class="icon-button" id="theme-toggle" aria-label="Cambiar tema">◐</button><button class="profile-button" type="button"><span>Invitado</span><b>G</b></button></div>
+    <div class="header-actions"><button class="icon-button" id="theme-toggle" aria-label="Cambiar tema">◐</button><a class="profile-button" href="register/register.html"><span>Crear cuenta</span><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><path d="M19 8v6M16 11h6"></path></svg></b></a><a class="profile-button" href="login/login.html"><span>Iniciar sesión</span><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M21 3v18"></path></svg></b></a></div>
   </header>
   <main id="inicio">
     <section class="hero" aria-labelledby="hero-title">
